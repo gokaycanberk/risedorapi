@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisedorApi.Api", "RisedorApi.Api\RisedorApi.Api.csproj", "{971B6F08-1412-4D18-ABE0-72FC45303EBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisedorApi.Domain", "RisedorApi.Domain\RisedorApi.Domain.csproj", "{BC4EC527-3046-45C3-91E6-F11A0F01194D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisedorApi.Application", "RisedorApi.Application\RisedorApi.Application.csproj", "{B771DF47-06B6-4FBC-AAD5-9E71B55CB85F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisedorApi.Infrastructure", "RisedorApi.Infrastructure\RisedorApi.Infrastructure.csproj", "{F87A9936-B36E-48C7-97B8-E24959AD83C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisedorApi.Shared", "RisedorApi.Shared\RisedorApi.Shared.csproj", "{D5ED221D-8B8C-491E-ACCC-6B2D45F6B30C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{971B6F08-1412-4D18-ABE0-72FC45303EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{971B6F08-1412-4D18-ABE0-72FC45303EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{971B6F08-1412-4D18-ABE0-72FC45303EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{971B6F08-1412-4D18-ABE0-72FC45303EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4EC527-3046-45C3-91E6-F11A0F01194D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4EC527-3046-45C3-91E6-F11A0F01194D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4EC527-3046-45C3-91E6-F11A0F01194D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4EC527-3046-45C3-91E6-F11A0F01194D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B771DF47-06B6-4FBC-AAD5-9E71B55CB85F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B771DF47-06B6-4FBC-AAD5-9E71B55CB85F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B771DF47-06B6-4FBC-AAD5-9E71B55CB85F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B771DF47-06B6-4FBC-AAD5-9E71B55CB85F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F87A9936-B36E-48C7-97B8-E24959AD83C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F87A9936-B36E-48C7-97B8-E24959AD83C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F87A9936-B36E-48C7-97B8-E24959AD83C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F87A9936-B36E-48C7-97B8-E24959AD83C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5ED221D-8B8C-491E-ACCC-6B2D45F6B30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5ED221D-8B8C-491E-ACCC-6B2D45F6B30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5ED221D-8B8C-491E-ACCC-6B2D45F6B30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5ED221D-8B8C-491E-ACCC-6B2D45F6B30C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

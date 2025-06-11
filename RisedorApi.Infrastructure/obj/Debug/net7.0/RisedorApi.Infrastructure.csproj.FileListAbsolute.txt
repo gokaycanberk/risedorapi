@@ -1,0 +1,15 @@
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/bin/Debug/net7.0/RisedorApi.Infrastructure.deps.json
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/bin/Debug/net7.0/RisedorApi.Infrastructure.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/bin/Debug/net7.0/RisedorApi.Infrastructure.pdb
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.csproj.AssemblyReference.cache
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.AssemblyInfoInputs.cache
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.AssemblyInfo.cs
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/refint/RisedorApi.Infrastructure.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.pdb
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/ref/RisedorApi.Infrastructure.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/bin/Debug/net7.0/RisedorApi.Domain.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/bin/Debug/net7.0/RisedorApi.Domain.pdb
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/obj/Debug/net7.0/RisedorApi.Infrastructure.csproj.CopyComplete

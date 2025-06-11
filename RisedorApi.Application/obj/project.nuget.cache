@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Js4WQG59+O6yZBXq+zVcoXSBBlaQYwNPPuaggtPlZSBGNcJXm7Lg3GSGOQ+ZJhFkATrb4XmeC1Dx8gSZayMXJA==",
+  "success": true,
+  "projectFilePath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/RisedorApi.Application.csproj",
+  "expectedPackageFiles": [
+    "/Users/gokaycanberkabanoz/.nuget/packages/mediatr/12.5.0/mediatr.12.5.0.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
