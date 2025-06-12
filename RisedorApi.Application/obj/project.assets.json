@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net7.0": {
+      "FluentValidation/11.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "MediatR/12.5.0": {
         "type": "package",
         "dependencies": {
@@ -51,6 +64,29 @@
     }
   },
   "libraries": {
+    "FluentValidation/11.8.0": {
+      "sha512": "TiEaaYqSIAS+wXQv46LRm8Mca092XYNePD0n231Hqlkmm5FuToZoWnjI1ef/vJUxBzqR7/k2vaVQXxijNgVKRQ==",
+      "type": "package",
+      "path": "fluentvalidation/11.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.11.8.0.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net5.0/FluentValidation.dll",
+        "lib/net5.0/FluentValidation.xml",
+        "lib/net6.0/FluentValidation.dll",
+        "lib/net6.0/FluentValidation.xml",
+        "lib/net7.0/FluentValidation.dll",
+        "lib/net7.0/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml",
+        "lib/netstandard2.1/FluentValidation.dll",
+        "lib/netstandard2.1/FluentValidation.xml"
+      ]
+    },
     "MediatR/12.5.0": {
       "sha512": "vqm2H8/nqL5NAJHPhsG1JOPwfkmbVrPyh4svdoRzu+uZh6Ex7PRoHBGsLYC0/RWCEJFqD1ohHNpteQvql9OktA==",
       "type": "package",
@@ -117,6 +153,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "FluentValidation >= 11.8.0",
       "MediatR >= 12.5.0"
     ]
   },
@@ -157,6 +194,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "FluentValidation": {
+            "target": "Package",
+            "version": "[11.8.0, )"
+          },
           "MediatR": {
             "target": "Package",
             "version": "[12.5.0, )"

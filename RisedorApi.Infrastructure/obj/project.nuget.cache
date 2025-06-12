@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "rEgLLPjbOF5yNeFOASrWXVVVz11AdoIAOWmDZBQ45SHwWRYXiIMrYMdu0VEVr1gr1trapj1KzHyl7Mv/P7Cpkw==",
+  "dgSpecHash": "F1qLsWRFBEDZFwSNCDSMBOHB2YtBTknvaSmz/vffic6qBfw9yBQ1H2opHtmxwmwMp/xuvO57HXeZ9npNk1C5Qg==",
   "success": true,
   "projectFilePath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.11/microsoft.aspnetcore.authentication.jwtbearer.7.0.11.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.entityframeworkcore/7.0.11/microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.11/microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.11/microsoft.entityframeworkcore.analyzers.7.0.11.nupkg.sha512",
@@ -17,8 +19,15 @@
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.15.1/microsoft.identitymodel.jsonwebtokens.6.15.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.identitymodel.logging/6.15.1/microsoft.identitymodel.logging.6.15.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.identitymodel.protocols/6.15.1/microsoft.identitymodel.protocols.6.15.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.15.1/microsoft.identitymodel.protocols.openidconnect.6.15.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/microsoft.identitymodel.tokens/6.15.1/microsoft.identitymodel.tokens.6.15.1.nupkg.sha512",
     "/Users/gokaycanberkabanoz/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512",
-    "/Users/gokaycanberkabanoz/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.11/npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512"
+    "/Users/gokaycanberkabanoz/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.11/npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/system.identitymodel.tokens.jwt/6.15.1/system.identitymodel.tokens.jwt.6.15.1.nupkg.sha512",
+    "/Users/gokaycanberkabanoz/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
