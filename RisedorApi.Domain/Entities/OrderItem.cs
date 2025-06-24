@@ -2,12 +2,13 @@ namespace RisedorApi.Domain.Entities;
 
 public class OrderItem
 {
-    public int Id { get; private set; }
-    public int OrderId { get; private set; }
-    public int ProductId { get; private set; }
-    public int Quantity { get; private set; }
+    public int Id { get; set; }
+    public int OrderId { get; set; }
+    public int ProductId { get; set; }
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
 
-    protected OrderItem() { } // For EF Core
+    protected OrderItem() { }
 
     public OrderItem(int orderId, int productId, int quantity)
     {
@@ -17,6 +18,6 @@ public class OrderItem
     }
 
     // Navigation properties
-    public Order Order { get; private set; }
-    public Product Product { get; private set; }
+    public Order Order { get; set; } = null!;
+    public Product Product { get; set; } = null!;
 }

@@ -4,19 +4,14 @@ namespace RisedorApi.Domain.Entities;
 
 public class User
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; }
-    public string Email { get; private set; }
-    public string PasswordHash { get; private set; }
-    public UserRole Role { get; private set; }
+    public int Id { get; set; }
+    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public string PasswordHash { get; set; } = null!;
+    public UserRole Role { get; set; }
 
-    protected User() { } // For EF Core
-
-    public User(string name, string email, string passwordHash, UserRole role)
-    {
-        Name = name;
-        Email = email;
-        PasswordHash = passwordHash;
-        Role = role;
-    }
+    // Navigation properties
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+    public ICollection<Product> Products { get; set; } = new List<Product>();
+    public ICollection<Promotion> Promotions { get; set; } = new List<Promotion>();
 }

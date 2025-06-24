@@ -1,48 +1,35 @@
+using System.Security.Claims;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RisedorApi.Api.Models;
+using RisedorApi.Application.Commands.User;
+using RisedorApi.Application.Queries.User;
 using RisedorApi.Domain.Entities;
-using RisedorApi.Domain.Enums;
-using RisedorApi.Infrastructure.Persistence;
 using RisedorApi.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace RisedorApi.Api.Endpoints;
 
 public static class AuthEndpoints
 {
-    public static void MapAuthEndpoints(this IEndpointRouteBuilder app)
+    public static void MapAuthEndpoints(this WebApplication app)
     {
         app.MapPost(
-                "/auth/login",
-                async (
-                    [FromBody] LoginRequest request,
-                    [FromServices] ApplicationDbContext dbContext,
-                    [FromServices] JwtAuthManager jwtAuthManager
-                ) =>
+            "/api/auth/login",
+            async ([FromBody] LoginRequest request, [FromServices] IMediator mediator) =>
+            {
+                try
                 {
-                    var user = await dbContext.Users.FirstOrDefaultAsync(
-                        u => u.Email == request.Email
+                    var result = await mediator.Send(
+                        new LoginUserCommand(request.Email, request.Password)
                     );
-
-                    if (user == null)
-                    {
-                        return Results.Unauthorized();
-                    }
-
-                    // In a real application, you would hash the password and compare with the stored hash
-                    // This is just for demonstration
-                    if (request.Password != user.PasswordHash)
-                    {
-                        return Results.Unauthorized();
-                    }
-
-                    var token = jwtAuthManager.GenerateToken(user);
-                    return Results.Ok(new { Token = token });
+                    return Results.Ok(result);
                 }
-            )
-            .AllowAnonymous()
-            .WithName("Login")
-            .WithOpenApi();
+                catch (FluentValidation.ValidationException ex)
+                {
+                    return Results.BadRequest(new { Message = ex.Message });
+                }
+            }
+        );
 
         // Example protected endpoint
         app.MapGet(
@@ -59,3 +46,5 @@ public static class AuthEndpoints
             .WithOpenApi();
     }
 }
+
+public record LoginRequest(string Email, string Password);

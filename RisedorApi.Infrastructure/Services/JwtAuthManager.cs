@@ -8,7 +8,7 @@ using RisedorApi.Domain.Enums;
 
 namespace RisedorApi.Infrastructure.Services;
 
-public class JwtAuthManager
+public class JwtAuthManager : IJwtAuthManager
 {
     private readonly JwtSettings _jwtSettings;
 

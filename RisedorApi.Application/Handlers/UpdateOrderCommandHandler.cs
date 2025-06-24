@@ -1,7 +1,6 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using RisedorApi.Application.Commands;
-using RisedorApi.Infrastructure.Persistence;
+using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers;
 
@@ -16,10 +15,7 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, boo
 
     public async Task<bool> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _context.Orders.FindAsync(
-            new object[] { request.OrderId },
-            cancellationToken
-        );
+        var order = await _context.Orders.FindAsync(new object[] { request.Id }, cancellationToken);
 
         if (order == null)
             return false;

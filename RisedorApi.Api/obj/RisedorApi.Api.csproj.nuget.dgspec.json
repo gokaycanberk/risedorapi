@@ -32,6 +32,9 @@
               },
               "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj": {
                 "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj"
+              },
+              "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj": {
+                "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj"
               }
             }
           }
@@ -46,19 +49,23 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.1, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.5.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.15, )"
+              "version": "[7.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.18, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -109,7 +116,14 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Domain/RisedorApi.Domain.csproj": {
+                "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Domain/RisedorApi.Domain.csproj"
+              },
+              "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj": {
+                "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -129,6 +143,14 @@
             "MediatR": {
               "target": "Package",
               "version": "[12.5.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.18, )"
             }
           },
           "imports": [
@@ -244,15 +266,96 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.18, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.18, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.11, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj",
+        "projectName": "RisedorApi.Shared",
+        "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj",
+        "packagesPath": "/Users/gokaycanberkabanoz/.nuget/packages/",
+        "outputPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gokaycanberkabanoz/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.8.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [

@@ -3,4 +3,4 @@ using RisedorApi.Domain.Entities;
 
 namespace RisedorApi.Application.Queries;
 
-public record GetOrderByIdQuery(int OrderId) : IRequest<Order?>;
+public record GetOrderByIdQuery(int Id) : IRequest<Order>;

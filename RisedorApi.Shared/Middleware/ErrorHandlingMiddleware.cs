@@ -1,6 +1,9 @@
 using System.Net;
 using System.Text.Json;
 using FluentValidation;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using RisedorApi.Shared.Common;
 using RisedorApi.Shared.Exceptions;
 
@@ -39,19 +42,16 @@ public class ErrorHandlingMiddleware
         {
             ApiException apiException
                 => new ErrorResponse(apiException.Message) { StatusCode = apiException.StatusCode },
-
             ValidationException validationException
-                => new ErrorResponse("Validation failed")
+                => new ErrorResponse("Validation error")
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
                     Errors = validationException.Errors.Select(e => e.ErrorMessage)
                 },
-
             _
                 => new ErrorResponse("An unexpected error occurred")
                 {
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
-                    Detail = exception.Message
+                    StatusCode = (int)HttpStatusCode.InternalServerError
                 }
         };
 
@@ -63,8 +63,8 @@ public class ErrorHandlingMiddleware
 
 public static class ErrorHandlingMiddlewareExtensions
 {
-    public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder app)
     {
-        return builder.UseMiddleware<ErrorHandlingMiddleware>();
+        return app.UseMiddleware<ErrorHandlingMiddleware>();
     }
 }

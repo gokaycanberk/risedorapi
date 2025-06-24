@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RisedorApi.Application.Queries.User;
-using RisedorApi.Infrastructure.Persistence;
+using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers.User;
 

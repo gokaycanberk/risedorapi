@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RisedorApi.Domain.Entities;
 
-namespace RisedorApi.Infrastructure.Persistence;
+namespace RisedorApi.Infrastructure.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -18,41 +18,56 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure relationships
-        modelBuilder
-            .Entity<Product>()
-            .HasOne(p => p.Vendor)
-            .WithMany()
-            .HasForeignKey(p => p.VendorId);
+        // User configuration
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
+        modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+
+        // Order.Supermarket
         modelBuilder
             .Entity<Order>()
             .HasOne(o => o.Supermarket)
             .WithMany()
-            .HasForeignKey(o => o.SupermarketId);
+            .HasForeignKey(o => o.SupermarketId)
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // Order.Vendor
         modelBuilder
             .Entity<Order>()
             .HasOne(o => o.Vendor)
             .WithMany()
-            .HasForeignKey(o => o.VendorId);
+            .HasForeignKey(o => o.VendorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // OrderItem configuration
         modelBuilder
             .Entity<OrderItem>()
             .HasOne(oi => oi.Order)
             .WithMany(o => o.OrderItems)
-            .HasForeignKey(oi => oi.OrderId);
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder
             .Entity<OrderItem>()
             .HasOne(oi => oi.Product)
             .WithMany()
-            .HasForeignKey(oi => oi.ProductId);
+            .HasForeignKey(oi => oi.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // Product configuration
+        modelBuilder
+            .Entity<Product>()
+            .HasOne(p => p.Vendor)
+            .WithMany(u => u.Products)
+            .HasForeignKey(p => p.VendorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Promotion configuration
         modelBuilder
             .Entity<Promotion>()
             .HasOne(p => p.Vendor)
-            .WithMany()
-            .HasForeignKey(p => p.VendorId);
+            .WithMany(u => u.Promotions)
+            .HasForeignKey(p => p.VendorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

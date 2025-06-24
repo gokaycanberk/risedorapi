@@ -4,6 +4,8 @@ using RisedorApi.Application.Commands.User;
 using RisedorApi.Application.Validators;
 using RisedorApi.Domain.Entities;
 using RisedorApi.Infrastructure.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RisedorApi.Application.Handlers.User;
 
@@ -37,7 +39,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Domai
         {
             Username = request.Username,
             Email = request.Email,
-            Password = request.Password, // In a real app, hash this password
+            PasswordHash = HashPassword(request.Password), // ✔️ artık sadece bu
             Role = request.Role
         };
 
@@ -45,5 +47,13 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Domai
         await _context.SaveChangesAsync(cancellationToken);
 
         return user;
+    }
+
+    private string HashPassword(string password)
+    {
+        using var sha = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(password);
+        var hash = sha.ComputeHash(bytes);
+        return Convert.ToBase64String(hash);
     }
 }

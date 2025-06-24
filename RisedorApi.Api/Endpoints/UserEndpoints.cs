@@ -9,16 +9,18 @@ public static class UserEndpoints
 {
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/users").WithTags("Users").RequireAuthorization("Staff");
+        var group = app.MapGroup("/api/users").WithTags("Users");
 
-        group.MapPost(
-            "/",
-            async ([FromBody] CreateUserCommand command, [FromServices] IMediator mediator) =>
-            {
-                var userId = await mediator.Send(command);
-                return Results.Created($"/api/users/{userId}", userId);
-            }
-        );
+        group
+            .MapPost(
+                "/",
+                async ([FromBody] CreateUserCommand command, [FromServices] IMediator mediator) =>
+                {
+                    var userId = await mediator.Send(command);
+                    return Results.Created($"/api/users/{userId}", userId);
+                }
+            )
+            .AllowAnonymous();
 
         group.MapGet(
             "/",

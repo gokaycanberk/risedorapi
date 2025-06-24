@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RisedorApi.Application.Queries;
 using RisedorApi.Domain.Entities;
-using RisedorApi.Infrastructure.Persistence;
+using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers;
 

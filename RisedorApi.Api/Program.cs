@@ -1,12 +1,15 @@
 using RisedorApi.Api.Endpoints;
 using RisedorApi.Application.Handlers;
-using RisedorApi.Infrastructure.Persistence;
+using RisedorApi.Infrastructure.Data;
 using RisedorApi.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using FluentValidation.AspNetCore;
+using RisedorApi.Shared.Middleware;
+using FluentValidation;
+using RisedorApi.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 // Configure JWT Settings
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-builder.Services.AddScoped<JwtAuthManager>();
+builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
 
 // Add JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -68,7 +71,7 @@ builder.Services.AddMediatR(cfg =>
 });
 
 // Add validation
-builder.Services.AddValidatorsFromAssembly(typeof(CreateUserCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
 
 var app = builder.Build();
 

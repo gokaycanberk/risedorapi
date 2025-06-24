@@ -4,26 +4,29 @@ namespace RisedorApi.Domain.Entities;
 
 public class Order
 {
-    public int Id { get; private set; }
-    public int SupermarketId { get; private set; }
-    public int VendorId { get; private set; }
-    public DateTime OrderDate { get; private set; }
-    public OrderStatus Status { get; private set; }
+    public int Id { get; set; }
+    public int UserId { get; set; }
+    public int SupermarketId { get; set; }
+    public int VendorId { get; set; }
+    public DateTime OrderDate { get; set; }
+    public OrderStatus Status { get; set; }
+    public decimal TotalAmount { get; set; }
 
-    private readonly List<OrderItem> _orderItems = new();
-    public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
+    // Navigation properties
+    public User Supermarket { get; set; } = null!;
+    public User Vendor { get; set; } = null!;
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
-    protected Order() { } // For EF Core
-
-    public Order(int supermarketId, int vendorId)
+    public Order()
     {
-        SupermarketId = supermarketId;
-        VendorId = vendorId;
         OrderDate = DateTime.UtcNow;
         Status = OrderStatus.Pending;
     }
 
-    // Navigation properties
-    public User Supermarket { get; private set; }
-    public User Vendor { get; private set; }
+    public Order(int supermarketId, int vendorId)
+        : this()
+    {
+        SupermarketId = supermarketId;
+        VendorId = vendorId;
+    }
 }

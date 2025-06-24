@@ -2,7 +2,7 @@ using MediatR;
 using RisedorApi.Application.Commands;
 using RisedorApi.Domain.Entities;
 using RisedorApi.Domain.Enums;
-using RisedorApi.Infrastructure.Persistence;
+using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers;
 

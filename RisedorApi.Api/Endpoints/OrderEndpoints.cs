@@ -2,30 +2,17 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RisedorApi.Application.Commands;
 using RisedorApi.Application.Queries;
+using RisedorApi.Domain.Entities;
+using RisedorApi.Domain.Enums;
 
 namespace RisedorApi.Api.Endpoints;
 
 public static class OrderEndpoints
 {
-    public static void MapOrderEndpoints(this IEndpointRouteBuilder app)
+    public static void MapOrderEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("/api/orders").WithTags("Orders").RequireAuthorization();
-
-        // Create Order
-        group
-            .MapPost(
-                "/",
-                async ([FromBody] CreateOrderCommand command, [FromServices] IMediator mediator) =>
-                {
-                    var orderId = await mediator.Send(command);
-                    return Results.Created($"/api/orders/{orderId}", orderId);
-                }
-            )
-            .RequireAuthorization("Supermarket");
-
-        // Get All Orders
-        group.MapGet(
-            "/",
+        app.MapGet(
+            "/api/orders",
             async ([FromServices] IMediator mediator) =>
             {
                 var orders = await mediator.Send(new GetOrdersQuery());
@@ -33,53 +20,68 @@ public static class OrderEndpoints
             }
         );
 
-        // Get Order by Id
-        group.MapGet(
-            "/{id}",
+        app.MapGet(
+            "/api/orders/{id}",
             async (int id, [FromServices] IMediator mediator) =>
             {
                 var order = await mediator.Send(new GetOrderByIdQuery(id));
                 if (order == null)
                     return Results.NotFound();
+
                 return Results.Ok(order);
             }
         );
 
-        // Update Order
-        group
-            .MapPut(
-                "/{id}",
-                async (
-                    int id,
-                    [FromBody] UpdateOrderCommand command,
-                    [FromServices] IMediator mediator
-                ) =>
-                {
-                    if (id != command.OrderId)
-                        return Results.BadRequest();
+        app.MapPost(
+            "/api/orders",
+            async ([FromBody] CreateOrderRequest request, [FromServices] IMediator mediator) =>
+            {
+                var items = request.Items
+                    .Select(i => new OrderItemDto(i.ProductId, i.Quantity))
+                    .ToList();
+                var command = new CreateOrderCommand(
+                    request.SupermarketId,
+                    request.VendorId,
+                    items
+                );
+                var orderId = await mediator.Send(command);
+                return Results.Created($"/api/orders/{orderId}", orderId);
+            }
+        );
 
-                    var success = await mediator.Send(command);
-                    if (!success)
-                        return Results.NotFound();
+        app.MapPut(
+            "/api/orders/{id}/status",
+            async (
+                int id,
+                [FromBody] UpdateOrderStatusRequest request,
+                [FromServices] IMediator mediator
+            ) =>
+            {
+                var command = new UpdateOrderCommand(id, request.Status);
+                var success = await mediator.Send(command);
+                if (!success)
+                    return Results.NotFound();
 
-                    return Results.NoContent();
-                }
-            )
-            .RequireAuthorization("Vendor");
+                return Results.NoContent();
+            }
+        );
 
-        // Delete Order
-        group
-            .MapDelete(
-                "/{id}",
-                async (int id, [FromServices] IMediator mediator) =>
-                {
-                    var success = await mediator.Send(new DeleteOrderCommand(id));
-                    if (!success)
-                        return Results.NotFound();
+        app.MapDelete(
+            "/api/orders/{id}",
+            async (int id, [FromServices] IMediator mediator) =>
+            {
+                var success = await mediator.Send(new DeleteOrderCommand(id));
+                if (!success)
+                    return Results.NotFound();
 
-                    return Results.NoContent();
-                }
-            )
-            .RequireAuthorization("Staff");
+                return Results.NoContent();
+            }
+        );
     }
 }
+
+public record CreateOrderRequest(int SupermarketId, int VendorId, List<OrderItemRequest> Items);
+
+public record OrderItemRequest(int ProductId, int Quantity);
+
+public record UpdateOrderStatusRequest(OrderStatus Status);
