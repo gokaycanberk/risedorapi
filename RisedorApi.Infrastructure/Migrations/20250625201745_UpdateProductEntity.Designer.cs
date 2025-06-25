@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RisedorApi.Infrastructure.Data;
@@ -11,9 +12,11 @@ using RisedorApi.Infrastructure.Data;
 namespace RisedorApi.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250625201745_UpdateProductEntity")]
+    partial class UpdateProductEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,12 +138,6 @@ namespace RisedorApi.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ItemCode")
-                        .IsUnique();
-
-                    b.HasIndex("UpcCode")
-                        .IsUnique();
 
                     b.HasIndex("VendorId");
 

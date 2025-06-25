@@ -23,7 +23,7 @@ public static class ProductEndpoints
                     return Results.Created($"/api/products/{productId}", productId);
                 }
             )
-            .RequireAuthorization("Vendor");
+            .RequireAuthorization("ProductManagement");
 
         group.MapGet(
             "/",
@@ -64,7 +64,7 @@ public static class ProductEndpoints
                     return Results.NoContent();
                 }
             )
-            .RequireAuthorization("Vendor");
+            .RequireAuthorization("ProductManagement");
 
         group
             .MapDelete(
@@ -78,6 +78,6 @@ public static class ProductEndpoints
                     return Results.NoContent();
                 }
             )
-            .RequireAuthorization("Vendor");
+            .RequireAuthorization("ProductManagement");
     }
 }

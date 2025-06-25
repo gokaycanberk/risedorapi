@@ -1,6 +1,6 @@
 using MediatR;
-using RisedorApi.Domain.Entities;
+using RisedorApi.Application.DTOs;
 
 namespace RisedorApi.Application.Queries.Product;
 
-public record GetProductByIdQuery(int Id) : IRequest<Domain.Entities.Product?>;
+public record GetProductByIdQuery(int Id) : IRequest<ProductDto?>;

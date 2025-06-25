@@ -62,6 +62,10 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(p => p.VendorId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Product>().HasIndex(p => p.UpcCode).IsUnique();
+
+        modelBuilder.Entity<Product>().HasIndex(p => p.ItemCode).IsUnique();
+
         // Promotion configuration
         modelBuilder
             .Entity<Promotion>()
