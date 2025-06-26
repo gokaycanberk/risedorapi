@@ -1,18 +1,19 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RisedorApi.Application.Commands;
+using RisedorApi.Application.Commands.Order;
 using RisedorApi.Application.Queries;
-using RisedorApi.Domain.Entities;
 using RisedorApi.Domain.Enums;
 
 namespace RisedorApi.Api.Endpoints;
 
 public static class OrderEndpoints
 {
-    public static void MapOrderEndpoints(this WebApplication app)
+    public static void MapOrderEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(
-            "/api/orders",
+        var group = app.MapGroup("/api/orders").WithTags("Orders").RequireAuthorization();
+
+        group.MapGet(
+            "/",
             async ([FromServices] IMediator mediator) =>
             {
                 var orders = await mediator.Send(new GetOrdersQuery());
@@ -20,8 +21,8 @@ public static class OrderEndpoints
             }
         );
 
-        app.MapGet(
-            "/api/orders/{id}",
+        group.MapGet(
+            "/{id}",
             async (int id, [FromServices] IMediator mediator) =>
             {
                 var order = await mediator.Send(new GetOrderByIdQuery(id));
@@ -32,46 +33,90 @@ public static class OrderEndpoints
             }
         );
 
-        app.MapPost(
-            "/api/orders",
+        group.MapPost(
+            "/",
             async ([FromBody] CreateOrderRequest request, [FromServices] IMediator mediator) =>
             {
-                var items = request.Items
-                    .Select(i => new OrderItemDto(i.ProductId, i.Quantity))
-                    .ToList();
-                var command = new CreateOrderCommand(
-                    request.SupermarketId,
-                    request.VendorId,
-                    items
-                );
+                var command = new CreateOrderCommand
+                {
+                    SalesRepUserId = request.SalesRepUserId,
+                    SupermarketUserId = request.SupermarketUserId,
+                    BuyerInfo = request.BuyerInfo,
+                    Items = request.Items
+                        .Select(
+                            i =>
+                                new CreateOrderItemDto
+                                {
+                                    ProductItemCode = i.ProductItemCode,
+                                    Quantity = i.Quantity,
+                                    VendorId = i.VendorId
+                                }
+                        )
+                        .ToList()
+                };
+
                 var orderId = await mediator.Send(command);
                 return Results.Created($"/api/orders/{orderId}", orderId);
             }
         );
 
-        app.MapPut(
-            "/api/orders/{id}/status",
+        group.MapPut(
+            "/{id}",
             async (
                 int id,
-                [FromBody] UpdateOrderStatusRequest request,
+                [FromBody] UpdateOrderRequest request,
                 [FromServices] IMediator mediator
             ) =>
             {
-                var command = new UpdateOrderCommand(id, request.Status);
-                var success = await mediator.Send(command);
-                if (!success)
+                var command = new UpdateOrderCommand
+                {
+                    Id = id,
+                    BuyerInfo = request.BuyerInfo,
+                    Items = request.Items
+                        .Select(
+                            i =>
+                                new UpdateOrderItemDto
+                                {
+                                    ProductItemCode = i.ProductItemCode,
+                                    Quantity = i.Quantity,
+                                    VendorId = i.VendorId
+                                }
+                        )
+                        .ToList()
+                };
+
+                var result = await mediator.Send(command);
+                if (!result)
                     return Results.NotFound();
 
                 return Results.NoContent();
             }
         );
 
-        app.MapDelete(
-            "/api/orders/{id}",
+        group.MapPut(
+            "/{id}/status",
+            async (
+                int id,
+                [FromBody] UpdateOrderStatusRequest request,
+                [FromServices] IMediator mediator
+            ) =>
+            {
+                var command = new UpdateOrderStatusCommand(id, request.Status);
+                var result = await mediator.Send(command);
+                if (!result)
+                    return Results.NotFound();
+
+                return Results.NoContent();
+            }
+        );
+
+        group.MapDelete(
+            "/{id}",
             async (int id, [FromServices] IMediator mediator) =>
             {
-                var success = await mediator.Send(new DeleteOrderCommand(id));
-                if (!success)
+                var command = new DeleteOrderCommand(id);
+                var result = await mediator.Send(command);
+                if (!result)
                     return Results.NotFound();
 
                 return Results.NoContent();
@@ -80,8 +125,32 @@ public static class OrderEndpoints
     }
 }
 
-public record CreateOrderRequest(int SupermarketId, int VendorId, List<OrderItemRequest> Items);
+public class CreateOrderRequest
+{
+    public int SalesRepUserId { get; set; }
+    public int SupermarketUserId { get; set; }
+    public string BuyerInfo { get; set; } = string.Empty;
+    public List<CreateOrderItemRequest> Items { get; set; } = new();
+}
 
-public record OrderItemRequest(int ProductId, int Quantity);
+public class CreateOrderItemRequest
+{
+    public string ProductItemCode { get; set; } = string.Empty;
+    public int Quantity { get; set; }
+    public int VendorId { get; set; }
+}
+
+public class UpdateOrderRequest
+{
+    public string BuyerInfo { get; set; } = string.Empty;
+    public List<UpdateOrderItemRequest> Items { get; set; } = new();
+}
+
+public class UpdateOrderItemRequest
+{
+    public string ProductItemCode { get; set; } = string.Empty;
+    public int Quantity { get; set; }
+    public int VendorId { get; set; }
+}
 
 public record UpdateOrderStatusRequest(OrderStatus Status);

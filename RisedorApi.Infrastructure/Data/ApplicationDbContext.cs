@@ -20,38 +20,36 @@ public class ApplicationDbContext : DbContext
 
         // User configuration
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
-        // Order.Supermarket
+        // Order configuration
+        modelBuilder
+            .Entity<Order>()
+            .HasOne(o => o.SalesRep)
+            .WithMany()
+            .HasForeignKey(o => o.SalesRepUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder
             .Entity<Order>()
             .HasOne(o => o.Supermarket)
             .WithMany()
-            .HasForeignKey(o => o.SupermarketId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        // Order.Vendor
-        modelBuilder
-            .Entity<Order>()
-            .HasOne(o => o.Vendor)
-            .WithMany()
-            .HasForeignKey(o => o.VendorId)
+            .HasForeignKey(o => o.SupermarketUserId)
             .OnDelete(DeleteBehavior.Restrict);
 
         // OrderItem configuration
         modelBuilder
             .Entity<OrderItem>()
             .HasOne(oi => oi.Order)
-            .WithMany(o => o.OrderItems)
+            .WithMany(o => o.Items)
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder
             .Entity<OrderItem>()
-            .HasOne(oi => oi.Product)
+            .HasOne(oi => oi.Vendor)
             .WithMany()
-            .HasForeignKey(oi => oi.ProductId)
+            .HasForeignKey(oi => oi.VendorId)
             .OnDelete(DeleteBehavior.Restrict);
 
         // Product configuration

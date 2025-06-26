@@ -122,6 +122,9 @@
               },
               "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj": {
                 "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Infrastructure/RisedorApi.Infrastructure.csproj"
+              },
+              "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj": {
+                "projectPath": "/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Shared/RisedorApi.Shared.csproj"
               }
             }
           }
@@ -140,9 +143,13 @@
               "target": "Package",
               "version": "[11.8.0, )"
             },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.8.0, )"
+            },
             "MediatR": {
               "target": "Package",
-              "version": "[12.5.0, )"
+              "version": "[12.0.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

@@ -5,28 +5,26 @@ namespace RisedorApi.Domain.Entities;
 public class Order
 {
     public int Id { get; set; }
-    public int UserId { get; set; }
-    public int SupermarketId { get; set; }
-    public int VendorId { get; set; }
-    public DateTime OrderDate { get; set; }
+    public int SalesRepUserId { get; set; }
+    public int SupermarketUserId { get; set; }
+    public string BuyerInfo { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; }
     public OrderStatus Status { get; set; }
     public decimal TotalAmount { get; set; }
 
     // Navigation properties
+    public User SalesRep { get; set; } = null!;
     public User Supermarket { get; set; } = null!;
-    public User Vendor { get; set; } = null!;
-    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
     public Order()
     {
-        OrderDate = DateTime.UtcNow;
+        CreatedAt = DateTime.UtcNow;
         Status = OrderStatus.Pending;
     }
 
-    public Order(int supermarketId, int vendorId)
-        : this()
+    public void CalculateTotalAmount()
     {
-        SupermarketId = supermarketId;
-        VendorId = vendorId;
+        TotalAmount = Items.Sum(item => item.UnitPrice * item.Quantity);
     }
 }

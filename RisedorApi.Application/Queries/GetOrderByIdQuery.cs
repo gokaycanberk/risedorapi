@@ -1,6 +1,6 @@
 using MediatR;
-using RisedorApi.Domain.Entities;
+using RisedorApi.Application.DTOs;
 
 namespace RisedorApi.Application.Queries;
 
-public record GetOrderByIdQuery(int Id) : IRequest<Order>;
+public record GetOrderByIdQuery(int Id) : IRequest<OrderDto?>;

@@ -1,6 +1,6 @@
 using MediatR;
-using RisedorApi.Domain.Entities;
+using RisedorApi.Application.DTOs;
 
 namespace RisedorApi.Application.Queries;
 
-public record GetOrdersQuery : IRequest<IEnumerable<Order>>;
+public record GetOrdersQuery : IRequest<List<OrderDto>>;

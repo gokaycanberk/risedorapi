@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.8.0" />
-    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.18" />
   </ItemGroup>
@@ -16,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RisedorApi.Domain\RisedorApi.Domain.csproj" />
     <ProjectReference Include="..\RisedorApi.Infrastructure\RisedorApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\RisedorApi.Shared\RisedorApi.Shared.csproj" />
   </ItemGroup>
 
 </Project>
