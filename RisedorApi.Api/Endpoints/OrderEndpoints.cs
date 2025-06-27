@@ -109,19 +109,6 @@ public static class OrderEndpoints
                 return Results.NoContent();
             }
         );
-
-        group.MapDelete(
-            "/{id}",
-            async (int id, [FromServices] IMediator mediator) =>
-            {
-                var command = new DeleteOrderCommand(id);
-                var result = await mediator.Send(command);
-                if (!result)
-                    return Results.NotFound();
-
-                return Results.NoContent();
-            }
-        );
     }
 }
 

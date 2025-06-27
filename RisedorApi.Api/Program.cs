@@ -1,17 +1,15 @@
-using RisedorApi.Api.Endpoints;
-using RisedorApi.Application.Handlers;
-using RisedorApi.Application.Handlers.Product;
-using RisedorApi.Infrastructure.Data;
-using RisedorApi.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using FluentValidation.AspNetCore;
-using FluentValidation;
+using RisedorApi.Api.Endpoints;
+using RisedorApi.Application.Commands.Order;
+using RisedorApi.Infrastructure.Data;
+using RisedorApi.Infrastructure.Services;
 using RisedorApi.Shared.Middleware;
-using RisedorApi.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +18,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Risedor API", Version = "v1" });
-
-    // JWT Support for Swagger
     c.AddSecurityDefinition(
         "Bearer",
         new OpenApiSecurityScheme
         {
             Description =
-                "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
+                "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
             Name = "Authorization",
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.ApiKey,
@@ -53,18 +49,20 @@ builder.Services.AddSwaggerGen(c =>
     );
 });
 
-// Configure JWT Settings
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
+// Configure JSON options
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 
 // Add JWT Authentication
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
+
 builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -73,26 +71,15 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings?.Issuer,
-            ValidAudience = jwtSettings?.Audience,
+            ValidIssuer = jwtSettings!.Issuer,
+            ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    jwtSettings?.SecretKey
-                        ?? throw new InvalidOperationException("JWT SecretKey is not configured")
-                )
+                System.Text.Encoding.UTF8.GetBytes(jwtSettings.SecretKey)
             )
         };
     });
 
-// Add Authorization
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Vendor", policy => policy.RequireRole("Vendor"));
-    options.AddPolicy("SalesRep", policy => policy.RequireRole("SalesRep"));
-    options.AddPolicy("Supermarket", policy => policy.RequireRole("Supermarket"));
-    options.AddPolicy("Staff", policy => policy.RequireRole("Staff"));
-    options.AddPolicy("ProductManagement", policy => policy.RequireRole("Vendor", "SalesRep"));
-});
+builder.Services.AddAuthorization();
 
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(
@@ -100,14 +87,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 );
 
 // Add MediatR
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssemblyContaining<GetWeatherForecastQueryHandler>();
-    cfg.RegisterServicesFromAssemblyContaining<CreateProductHandler>();
-});
+builder.Services.AddMediatR(
+    cfg => cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly)
+);
 
-// Add validation
-builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssembly(typeof(CreateOrderCommand).Assembly);
 
 var app = builder.Build();
 
@@ -120,22 +105,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseErrorHandling();
-
 // Map endpoints
-app.MapWeatherForecastEndpoints();
-app.MapAuthEndpoints();
 app.MapOrderEndpoints();
-app.MapUserEndpoints();
 app.MapProductEndpoints();
 app.MapPromotionEndpoints();
+app.MapUserEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -25,6 +25,6 @@ public class Order
 
     public void CalculateTotalAmount()
     {
-        TotalAmount = Items.Sum(item => item.UnitPrice * item.Quantity);
+        TotalAmount = Items.Sum(item => item.CasePrice * item.Quantity);
     }
 }

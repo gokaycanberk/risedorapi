@@ -6,7 +6,7 @@ public class OrderItem
     public string ProductItemCode { get; set; } = string.Empty;
     public int Quantity { get; set; }
     public int VendorId { get; set; }
-    public decimal UnitPrice { get; set; }
+    public decimal CasePrice { get; set; }
     public int OrderId { get; set; }
 
     // Navigation properties
@@ -15,11 +15,11 @@ public class OrderItem
 
     protected OrderItem() { }
 
-    public OrderItem(string productItemCode, int quantity, int vendorId, decimal unitPrice)
+    public OrderItem(string productItemCode, int quantity, int vendorId, decimal casePrice)
     {
         ProductItemCode = productItemCode;
         Quantity = quantity;
         VendorId = vendorId;
-        UnitPrice = unitPrice;
+        CasePrice = casePrice;
     }
 }

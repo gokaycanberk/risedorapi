@@ -4,7 +4,7 @@ using RisedorApi.Application.DTOs;
 using RisedorApi.Application.Queries;
 using RisedorApi.Infrastructure.Data;
 
-namespace RisedorApi.Application.Handlers;
+namespace RisedorApi.Application.Handlers.Order;
 
 public class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<OrderDto>>
 {
@@ -46,7 +46,7 @@ public class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<OrderD
                                         ProductItemCode = i.ProductItemCode,
                                         Quantity = i.Quantity,
                                         VendorId = i.VendorId,
-                                        UnitPrice = i.UnitPrice
+                                        CasePrice = i.CasePrice
                                     }
                             )
                             .ToList()

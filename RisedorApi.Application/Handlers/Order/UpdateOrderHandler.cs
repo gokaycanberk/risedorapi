@@ -89,7 +89,7 @@ public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, bool>
                     }
                     product.Stock -= quantityDiff;
                     existingItem.Quantity = itemDto.Quantity;
-                    existingItem.UnitPrice = product.UnitPrice; // Update to current price
+                    existingItem.CasePrice = product.CasePrice; // Update to current price
                 }
                 else
                 {
@@ -106,7 +106,7 @@ public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, bool>
                         itemDto.ProductItemCode,
                         itemDto.Quantity,
                         itemDto.VendorId,
-                        product.UnitPrice
+                        product.CasePrice
                     )
                     {
                         OrderId = order.Id

@@ -81,7 +81,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int
                     itemDto.ProductItemCode,
                     itemDto.Quantity,
                     itemDto.VendorId,
-                    product.UnitPrice
+                    product.CasePrice
                 )
                 {
                     OrderId = order.Id

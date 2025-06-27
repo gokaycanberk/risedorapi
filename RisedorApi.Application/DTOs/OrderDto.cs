@@ -20,5 +20,5 @@ public class OrderItemDto
     public string ProductItemCode { get; set; } = string.Empty;
     public int Quantity { get; set; }
     public int VendorId { get; set; }
-    public decimal UnitPrice { get; set; }
+    public decimal CasePrice { get; set; }
 }

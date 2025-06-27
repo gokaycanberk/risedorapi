@@ -3,8 +3,10 @@
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Application.pdb
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Domain.dll
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Infrastructure.dll
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Shared.dll
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Domain.pdb
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Infrastructure.pdb
+/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Shared.pdb
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/RisedorApi.Application.csproj.AssemblyReference.cache
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/RisedorApi.Application.GeneratedMSBuildEditorConfig.editorconfig
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/RisedorApi.Application.AssemblyInfoInputs.cache
@@ -15,5 +17,3 @@
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/refint/RisedorApi.Application.dll
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/RisedorApi.Application.pdb
 /Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/obj/Debug/net7.0/ref/RisedorApi.Application.dll
-/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Shared.dll
-/Users/gokaycanberkabanoz/Documents/GitHub/risedorapi/RisedorApi.Application/bin/Debug/net7.0/RisedorApi.Shared.pdb

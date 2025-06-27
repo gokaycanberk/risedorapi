@@ -22,6 +22,17 @@ public static class UserEndpoints
             )
             .AllowAnonymous();
 
+        group
+            .MapPost(
+                "/login",
+                async ([FromBody] LoginUserCommand command, [FromServices] IMediator mediator) =>
+                {
+                    var response = await mediator.Send(command);
+                    return Results.Ok(response);
+                }
+            )
+            .AllowAnonymous();
+
         group.MapGet(
             "/",
             async ([FromServices] IMediator mediator) =>
