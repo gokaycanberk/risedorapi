@@ -5,7 +5,8 @@ using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers.User;
 
-public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, Domain.Entities.User>
+public class GetUserByEmailQueryHandler
+    : IRequestHandler<GetUserByEmailQuery, Domain.Entities.User?>
 {
     private readonly ApplicationDbContext _context;
 
@@ -14,7 +15,7 @@ public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, D
         _context = context;
     }
 
-    public async Task<Domain.Entities.User> Handle(
+    public async Task<Domain.Entities.User?> Handle(
         GetUserByEmailQuery request,
         CancellationToken cancellationToken
     )

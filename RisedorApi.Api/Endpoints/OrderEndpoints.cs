@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RisedorApi.Application.Commands.Order;
 using RisedorApi.Application.Queries;
+using RisedorApi.Application.Queries.Order;
 using RisedorApi.Domain.Enums;
 
 namespace RisedorApi.Api.Endpoints;
@@ -17,6 +18,33 @@ public static class OrderEndpoints
             async ([FromServices] IMediator mediator) =>
             {
                 var orders = await mediator.Send(new GetOrdersQuery());
+                return Results.Ok(orders);
+            }
+        );
+
+        group.MapGet(
+            "/salesrep/{userId}",
+            async (int userId, [FromServices] IMediator mediator) =>
+            {
+                var orders = await mediator.Send(new GetOrdersBySalesRepQuery(userId));
+                return Results.Ok(orders);
+            }
+        );
+
+        group.MapGet(
+            "/supermarket/{userId}",
+            async (int userId, [FromServices] IMediator mediator) =>
+            {
+                var orders = await mediator.Send(new GetOrdersBySupermarketQuery(userId));
+                return Results.Ok(orders);
+            }
+        );
+
+        group.MapGet(
+            "/vendor/{vendorId}",
+            async (int vendorId, [FromServices] IMediator mediator) =>
+            {
+                var orders = await mediator.Send(new GetOrdersByVendorQuery(vendorId));
                 return Results.Ok(orders);
             }
         );

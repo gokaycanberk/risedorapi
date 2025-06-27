@@ -4,7 +4,7 @@ using RisedorApi.Infrastructure.Data;
 
 namespace RisedorApi.Application.Handlers.User;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Domain.Entities.User>
+public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Domain.Entities.User?>
 {
     private readonly ApplicationDbContext _context;
 
@@ -13,7 +13,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Domain.
         _context = context;
     }
 
-    public async Task<Domain.Entities.User> Handle(
+    public async Task<Domain.Entities.User?> Handle(
         GetUserByIdQuery request,
         CancellationToken cancellationToken
     )

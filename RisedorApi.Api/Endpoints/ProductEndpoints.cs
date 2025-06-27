@@ -35,6 +35,15 @@ public static class ProductEndpoints
         );
 
         group.MapGet(
+            "/vendor/{vendorId}",
+            async (int vendorId, [FromServices] IMediator mediator) =>
+            {
+                var products = await mediator.Send(new GetProductsByVendorQuery(vendorId));
+                return Results.Ok(products);
+            }
+        );
+
+        group.MapGet(
             "/{id}",
             async (int id, [FromServices] IMediator mediator) =>
             {
