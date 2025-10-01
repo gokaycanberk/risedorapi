@@ -15,6 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }
+    );
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Risedor API", Version = "v1" });
@@ -96,6 +108,13 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreateOrderCommand).Assembly);
 
 var app = builder.Build();
 
+// Apply migrations automatically
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -104,6 +123,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS before other middleware
+app.UseCors("AllowAll");
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
