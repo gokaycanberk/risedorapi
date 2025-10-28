@@ -17,4 +17,9 @@ RUN dotnet publish "RisedorApi.Api/RisedorApi.Api.csproj" -c Release -o /app/pub
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+
+# Render uses PORT environment variable
+ENV ASPNETCORE_URLS=http://+:$PORT
+EXPOSE $PORT
+
 ENTRYPOINT ["dotnet", "RisedorApi.Api.dll"]
