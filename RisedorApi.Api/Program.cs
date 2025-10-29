@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
         }
     );
 });
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Risedor API", Version = "v1" });
@@ -68,9 +69,17 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-// Add JWT Authentication
+// Add JWT Authentication with validation
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
+if (jwtSettings == null || string.IsNullOrEmpty(jwtSettings.SecretKey))
+{
+    throw new InvalidOperationException(
+        "JWT Settings are not configured properly! Check your environment variables."
+    );
+}
+
 builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
 
 builder.Services
@@ -83,7 +92,7 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings!.Issuer,
+            ValidIssuer = jwtSettings.Issuer,
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(
                 System.Text.Encoding.UTF8.GetBytes(jwtSettings.SecretKey)
@@ -108,7 +117,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreateOrderCommand).Assembly);
 
 var app = builder.Build();
 
-// Apply migrations automatically
+// Apply migrations automatically - COMMENTED OUT FOR SAFETY
 /*
 using (var scope = app.Services.CreateScope())
 {
@@ -116,14 +125,16 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }*/
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
+// Swagger her ortamda açık (test için)
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// HTTPS Redirect sadece development'ta
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseHttpsRedirection();
 }
-
-app.UseHttpsRedirection();
 
 // Use CORS before other middleware
 app.UseCors("AllowAll");
